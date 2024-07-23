@@ -17,6 +17,12 @@
 
   os = ({ o, s ? "", ... }@args: "${o} ${s} is written in ${args.c}") { o = "Operating"; s = "System"; c = "C"; };
 
-  sum = (x: y: x + y) 4 3;
+  sum = import ./sum.nix 4 3;
+
+  upper =
+    let
+      pkgs = import <nixpkgs> { };
+    in
+    pkgs.lib.strings.toUpper "you are looking uppercased string";
 
 }

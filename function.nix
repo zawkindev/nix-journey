@@ -25,4 +25,5 @@
     in
     pkgs.lib.strings.toUpper "you are looking uppercased string";
 
+    impure_path = "${./data}";
 }

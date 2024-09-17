@@ -14,10 +14,12 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "asuna"; # Define your hostname.
+  networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-
+  # Enable the Flakes feature and the accompanying new nix command-line tool
+  nix.settings.experimental-features = ["nix-command" "flakes"];
+  
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
@@ -67,7 +69,7 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.zawkin = {
+  users.users.shahruz = {
     isNormalUser = true;
     description = "Shahruz Norimmatov";
     extraGroups = [ "networkmanager" "wheel" ];
@@ -78,20 +80,16 @@
 
   # Install firefox.
   programs.firefox.enable = true;
+  programs.zsh.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-
-  # Enable the Flakes feature and the accompanying new nix command-line tool
-  nix.settings.experimental-features = ["nix-command" "flakes"];
-
   environment.systemPackages = with pkgs; [
 	gnome.gnome-tweaks
 	evdevremapkeys
-	helix
 	vim
 	telegram-desktop
 	neovim
@@ -103,7 +101,10 @@
 	nixpkgs-fmt
 	nil
   qbittorrent
+  zsh
   ];
+
+  users.defaultUserShell = pkgs.zsh;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
